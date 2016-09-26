@@ -37,10 +37,6 @@ MACRO( ADD_TARGET )
   LIST(APPEND ${BUILD_SCOPE}-all ${${BUILD_SCOPE}-headers})
   ADD_EXECUTABLE( ${BUILD_SCOPE} ${${BUILD_SCOPE}-all} )
   
-  IF ( NOT CLANG_CL )
-	SET_PROPERTY ( TARGET ${BUILD_SCOPE} PROPERTY CXX_STANDARD 14 )  
-  ENDIF ()
-  
   GroupInVisualStudio()
   #MagicAssets()
   
@@ -78,10 +74,6 @@ MACRO( ADD_STATIC_LIB )
   LIST(APPEND ${BUILD_SCOPE}-all ${${BUILD_SCOPE}-headers})  
   ADD_LIBRARY( ${BUILD_SCOPE} ${${BUILD_SCOPE}-all})
   
-  IF ( NOT CLANG_CL )
-	SET_PROPERTY ( TARGET ${BUILD_SCOPE} PROPERTY CXX_STANDARD 14 )  
-  ENDIF ()
-
   GroupInVisualStudio()
   #MagicAssets()
   

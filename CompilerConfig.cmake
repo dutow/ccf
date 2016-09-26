@@ -45,5 +45,8 @@ ELSE()
   IF( CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.9 )
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined") # TODO: too much easylogging warnings with clang4
   ENDIF()
+
+  SET ( CMAKE_CXX_STANDARD 14 )  
+
 ENDIF()
 
