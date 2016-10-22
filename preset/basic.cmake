@@ -34,6 +34,7 @@ INCLUDE( vendor-libs/easylogging )
 INCLUDE( vendor-libs/gsl )
 INCLUDE( vendor-libs/eggs-variant )
 INCLUDE( vendor-libs/better-enums )
+INCLUDE( vendor-libs/optional )
 
 # test framework
 INCLUDE( vendor-libs/catch )
