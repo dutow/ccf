@@ -6,6 +6,7 @@ INCLUDE( preset/basic )
 
 # additional 3rd party libraries
 INCLUDE( vendor-libs/glm )
+INCLUDE (vendor-libs/opengl )
 
 IF( CANCELLAR_PLATFORM_LINUX )
   INCLUDE (vendor-libs/x11 )
