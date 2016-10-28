@@ -26,16 +26,3 @@ INCLUDE( BuildHelpers )
 INCLUDE( CancellarConfig )
 INCLUDE( CompilerConfig )
 #INCLUDE( MagicAssets )
-
-# 3rd party libraries
-INCLUDE( vendor-libs/threads )
-INCLUDE( vendor-libs/easylogging )
-INCLUDE( vendor-libs/gsl )
-INCLUDE( vendor-libs/eggs-variant )
-INCLUDE( vendor-libs/better-enums )
-INCLUDE( vendor-libs/optional )
-
-# test framework
-INCLUDE( vendor-libs/catch )
-INCLUDE( vendor-libs/fakeit-catch )
-
