@@ -39,6 +39,7 @@ IF( MSVC )
   ENDIF()
 ELSE()
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall") # enable every warning
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas") # e.g. pragma region / endregion
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++1z-extensions") # allow experimental C++17
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror") # treat warnings as errors
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic") # be more standard compliant
