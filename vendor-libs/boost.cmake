@@ -11,5 +11,5 @@ INCLUDE( FindBoost )
 FIND_PACKAGE( Boost REQUIRED COMPONENTS system thread context fiber program_options filesystem iostreams )
 
 APPEND_VENDOR_INCLUDES( "${Boost_INCLUDE_DIR}" )
-APPEND_VENDOR_LIBRARIES( "${Boost_LIBRARIES}" )
+APPEND_VENDOR_LIBRARIES( ${Boost_LIBRARIES} )
 
