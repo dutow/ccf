@@ -46,6 +46,7 @@ ELSE()
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-vla-extension") # required for SFML. TODO: different warnings for vendors!
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations") # required for SFML. TODO: different warnings for vendors!
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable") # required for SFML. TODO: different warnings for vendors!
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual") # ticpp requires a fix
   IF( CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.9 )
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined") # TODO: too much easylogging warnings with clang4
   ENDIF()

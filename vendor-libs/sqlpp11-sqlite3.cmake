@@ -1,0 +1,9 @@
+
+INCLUDE_GUARD()
+INCLUDE( vendor-libs/vendor-helper )
+
+ADD_SUBDIRECTORY( "${CANCELLAR_BUILD_VENDOR_DIR}/sqlpp11-connector-sqlite3" )
+
+APPEND_VENDOR_INCLUDES( "${CANCELLAR_BUILD_VENDOR_DIR}/date" )
+APPEND_VENDOR_INCLUDES( "${CANCELLAR_BUILD_VENDOR_DIR}/sqlpp11-connector-sqlite3/include/" )
+APPEND_VENDOR_LIBRARIES( sqlpp11-connector-sqlite3 )
