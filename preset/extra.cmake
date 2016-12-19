@@ -4,6 +4,8 @@ INCLUDE_GUARD()
 
 INCLUDE( preset/basic )
 
+DEFINE_BUILD_PRESET( "EXTRA" )
+
 # additional 3rd party libraries
 INCLUDE( vendor-libs/boost )
 

@@ -17,6 +17,9 @@ ENDIF()
 ## Common settings
 ENABLE_TESTING()
 
+INCLUDE( "vendor-libs/vendor-helper" )
+DEFINE_BUILD_PRESET( "BASIC" )
+
 # for vim youcompleteme
 SET ( CMAKE_EXPORT_COMPILE_COMMANDS 1 )
 
