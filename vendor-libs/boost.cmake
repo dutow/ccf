@@ -4,7 +4,9 @@ INCLUDE_GUARD()
 INCLUDE( vendor-libs/vendor-helper )
 
 # Note: this requies a boost built by hand
-SET ( BOOST_ROOT "${CANCELLAR_BUILD_VENDOR_DIR}/boost-install" )
+IF( NOT DEFINED BOOST_ROOT )
+  SET ( BOOST_ROOT "${CANCELLAR_BUILD_VENDOR_DIR}/boost-install" )
+ENDIF()
 SET ( Boost_USE_STATIC_LIBS ON )
 INCLUDE( FindBoost )
 # Build only the libraries that make sense with C++14
