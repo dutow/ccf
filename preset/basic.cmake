@@ -34,10 +34,11 @@ INCLUDE( CompilerConfig )
 INCLUDE( vendor-libs/threads )
 INCLUDE( vendor-libs/easylogging )
 INCLUDE( vendor-libs/gsl )
-INCLUDE( vendor-libs/eggs-variant )
+#INCLUDE( vendor-libs/eggs-variant )
 INCLUDE( vendor-libs/range-v3 )
 INCLUDE( vendor-libs/better-enums )
-INCLUDE( vendor-libs/optional )
+#INCLUDE( vendor-libs/optional )
+INCLUDE( vendor-libs/rang )
 
 # test framework
 INCLUDE( vendor-libs/catch )
