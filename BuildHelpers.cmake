@@ -27,6 +27,7 @@ MACRO( ADD_TARGET )
   FILE( GLOB_RECURSE 
 			${BUILD_SCOPE}-headers *.hxx 
 			"${CMAKE_CURRENT_BINARY_DIR}/*.hxx" 
+      "${CMAKE_CURRENT_SOURCE_DIR}/../internal_include/*.hxx"
 			"${PROJECT_SOURCE_DIR}/assets/${BUILD_SCOPEDIR}/*.glsl" 
 	  )
 
@@ -37,6 +38,10 @@ MACRO( ADD_TARGET )
   LIST(APPEND ${BUILD_SCOPE}-all ${${BUILD_SCOPE}-headers})
   ADD_EXECUTABLE( ${BUILD_SCOPE} ${${BUILD_SCOPE}-all} )
   
+  IF( MSVC )
+    target_compile_options(${BUILD_SCOPE} PRIVATE "/std:c++latest") # allow experimental C++17
+  ENDIF()
+
   GroupInVisualStudio()
   #MagicAssets()
   
@@ -92,7 +97,10 @@ MACRO( ADD_STATIC_LIB )
   ADD_LIBRARY( ${BUILD_SCOPE} STATIC ${${BUILD_SCOPE}-all})
   SET_PROPERTY(TARGET ${BUILD_SCOPE} PROPERTY POSITION_INDEPENDENT_CODE ON)
 
-  
+  IF( MSVC )
+    target_compile_options(${BUILD_SCOPE} PRIVATE "/std:c++latest") # allow experimental C++17
+  ENDIF()
+
   GroupInVisualStudio()
   #MagicAssets()
   

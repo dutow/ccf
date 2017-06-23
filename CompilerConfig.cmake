@@ -27,15 +27,17 @@ IF( MSVC )
 	
   ENDIF()
   IF( CLANG_CL )
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -Wno-c++1z-extensions") # allow experimental C++17
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas") # msvc pragmas in boost
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-microsoft-unqualified-friend") # msvc specific code in boost
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-microsoft-enum-value") # msvc specific code in boost
-  IF( CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.9 )
-  	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined") # TODO: too much easylogging warnings with clang4
-  ENDIF ()
+	  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -Wno-c++1z-extensions") # allow experimental C++17
+	  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas") # msvc pragmas in boost
+	  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-microsoft-unqualified-friend") # msvc specific code in boost
+	  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-microsoft-enum-value") # msvc specific code in boost
+    IF( CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.9 )
+  	  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined") # TODO: too much easylogging warnings with clang4
+    ENDIF ()
 	
 	# TODO: fix warnings and add Werror
+  ELSE()
+    #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest") # allow experimental C++17
   ENDIF()
 ELSE()
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall") # enable every warning
