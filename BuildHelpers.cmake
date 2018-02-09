@@ -52,6 +52,8 @@ MACRO ( COMMON_TARGET_PROPERTIES )
   ENDIF()
   IF ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU" )
     TARGET_COMPILE_OPTIONS( ${BUILD_SCOPE} PRIVATE "-Wextra" )
+    SET_PROPERTY( TARGET ${BUILD_SCOPE} PROPERTY CXX_CLANG_TIDY
+      "clang-tidy;-checks=-*,clang-analyzer-*,-clang-analyzer-cplusplus*,boost-*,bugprone-*,cppcoreguidelines-*,modernize-*,performance-*,readability-*;-warnings-as-errors=*")
     TARGET_COMPILE_OPTIONS( ${BUILD_SCOPE} PRIVATE "-Werror" )
   ENDIF()
 
