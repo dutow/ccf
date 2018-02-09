@@ -40,20 +40,8 @@ IF( MSVC )
     #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest") # allow experimental C++17
   ENDIF()
 ELSE()
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall") # enable every warning
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas") # e.g. pragma region / endregion
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++1z-extensions") # allow experimental C++17
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror") # treat warnings as errors
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic") # be more standard compliant
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-vla-extension") # required for SFML. TODO: different warnings for vendors!
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations") # required for SFML. TODO: different warnings for vendors!
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable") # required for SFML. TODO: different warnings for vendors!
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual") # ticpp requires a fix
-  IF( CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.9 )
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined") # TODO: too much easylogging warnings with clang4
-  ENDIF()
-
-  SET ( CMAKE_CXX_STANDARD 14 )  
-
+  # Default to C++14 - this avoids some auto_ptr issues in vendors
+  SET(CMAKE_CXX_STANDARD 14)
 ENDIF()
 
