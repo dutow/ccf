@@ -17,14 +17,13 @@ IF( MSVC )
   ENDIF()
   IF( CLANG_CL AND NOT CLANG_CL_TOOLCHAIN )
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmsc-version=1900") # compatible with VS2015
-	IF( CANCELLAR_ARCH_64 ) 
+    IF( CANCELLAR_ARCH_64 )
       SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
-	ELSEIF( CANCELLAR_ARCH_32 )
-      SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")	
-	ELSE()
+    ELSEIF( CANCELLAR_ARCH_32 )
+        SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+    ELSE()
 	  MESSAGE(FATAL_ERROR "Unknown architechture for clang-cl")
-	ENDIF()
-	
+    ENDIF()
   ENDIF()
   IF( CLANG_CL )
 	  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -Wno-c++1z-extensions") # allow experimental C++17
@@ -34,13 +33,8 @@ IF( MSVC )
     IF( CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.9 )
   	  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined") # TODO: too much easylogging warnings with clang4
     ENDIF ()
-	
-	# TODO: fix warnings and add Werror
-  ELSE()
-    #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest") # allow experimental C++17
   ENDIF()
 ELSE()
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas") # e.g. pragma region / endregion
   # Default to C++14 - this avoids some auto_ptr issues in vendors
   SET(CMAKE_CXX_STANDARD 14)
 ENDIF()
