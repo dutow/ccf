@@ -35,6 +35,12 @@ IF( MSVC )
     ENDIF ()
   ENDIF()
 ELSE()
+  # The C++ standard library has to be set globally to ensure that dependencies are built with the same
+  IF ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
+    SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++" )
+    SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++ -lc++abi" )
+  ENDIF()
+
   # Default to C++14 - this avoids some auto_ptr issues in vendors
   SET(CMAKE_CXX_STANDARD 14)
 ENDIF()
