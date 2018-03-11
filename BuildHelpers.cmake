@@ -12,6 +12,8 @@
 
 # TODO: add errors for  missing cpp files / wrong directory structure!
 
+OPTION( WITH_TIDY "Run clang-tidy during the build, if clang is the compiler" ON)
+
 
 MACRO( MODIFY_SCOPE addto )
   IF( NOT BUILD_SCOPE )
@@ -51,7 +53,7 @@ MACRO ( COMMON_TARGET_PROPERTIES )
     TARGET_COMPILE_OPTIONS( ${BUILD_SCOPE} PRIVATE "/std:c++latest" ) # allow experimental C++17
   ENDIF()
   
-  IF ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC )
+  IF ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC AND WITH_TIDY )
     SET_PROPERTY( TARGET ${BUILD_SCOPE} PROPERTY CXX_CLANG_TIDY "clang-tidy")
   ENDIF()
 
