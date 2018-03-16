@@ -3,5 +3,10 @@
 INCLUDE_GUARD()
 INCLUDE( vendor-libs/vendor-helper )
 
-INTERNAL_TEST_SINGLE_HEADER_ONLY_LIBRARY( "FakeIt" "FakeIt/single_header/catch" )
+OPTION(WITH_FAKEIT_SPLIT "Use multi-header FakeIt" OFF)
 
+IF (WITH_FAKEIT_SPLIT)
+  INTERNAL_TEST_SINGLE_HEADER_ONLY_LIBRARY( "FakeIt" "FakeIt/include/" "FakeIt/config/catch" )
+ELSE()
+  INTERNAL_TEST_SINGLE_HEADER_ONLY_LIBRARY( "FakeIt" "FakeIt/single_header/catch" )
+ENDIF()
