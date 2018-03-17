@@ -16,7 +16,7 @@ IF( MSVC )
   	SET (CLANG_CL_TOOLCHAIN OFF)
   ENDIF()
   IF( CLANG_CL AND NOT CLANG_CL_TOOLCHAIN )
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmsc-version=1910") # compatible with VS2017
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fms-compatibility -fms-extensions") # compatible with VS2017
     IF( CANCELLAR_ARCH_64 )
       SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
     ELSEIF( CANCELLAR_ARCH_32 )
