@@ -1,0 +1,7 @@
+
+INCLUDE_GUARD()
+INCLUDE( third-parties/third-party-helper )
+
+FIND_PACKAGE( Threads REQUIRED )
+
+APPEND_THIRD_PARTY_LIBRARIES( "${CMAKE_THREAD_LIBS_INIT}" )

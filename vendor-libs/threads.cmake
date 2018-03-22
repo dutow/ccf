@@ -1,7 +1,0 @@
-
-INCLUDE_GUARD()
-INCLUDE( vendor-libs/vendor-helper )
-
-FIND_PACKAGE( Threads REQUIRED )
-
-APPEND_VENDOR_LIBRARIES( "${CMAKE_THREAD_LIBS_INIT}" )

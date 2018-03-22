@@ -32,7 +32,7 @@ ELSE()
     SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++ -lc++abi" )
   ENDIF()
 
-  # Default to C++14 - this avoids some auto_ptr issues in vendors
+  # Default to C++14 - this avoids some auto_ptr issues in third-partys
   SET(CMAKE_CXX_STANDARD 14)
 ENDIF()
 

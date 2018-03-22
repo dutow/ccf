@@ -1,0 +1,7 @@
+INCLUDE_GUARD()
+INCLUDE( third-parties/third-party-helper )
+
+ADD_SUBDIRECTORY( "${CANCELLAR_BUILD_THIRD_PARTY_DIR}/lua" )
+# HACK! uses the build directory
+TARGET_INCLUDE_DIRECTORIES(  liblua INTERFACE "${CANCELLAR_BUILD_THIRD_PARTY_DIR}/lua/src" "${CANCELLAR_BUILD_BINARY_DIR}/third-party/lua/" )
+INTERNAL_PRESET_DEPENDENCY( liblua )

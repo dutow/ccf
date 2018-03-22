@@ -1,7 +1,0 @@
-
-INCLUDE_GUARD()
-INCLUDE( vendor-libs/vendor-helper )
-
-ADD_SUBDIRECTORY( "${CANCELLAR_BUILD_VENDOR_DIR}/ticpp" )
-INTERNAL_PRESET_DEPENDENCY ( ticpp )
-
