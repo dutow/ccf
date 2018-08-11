@@ -7,7 +7,7 @@ INCLUDE( third-parties/python_interpreter )
 OPTION(WITH_CATCH_SPLIT "Use multi-header Catch2" OFF)
 
 
-INTERNAL_TEST_SINGLE_HEADER_ONLY_LIBRARY( "catch" "Catch/single_include" )
+INTERNAL_TEST_SINGLE_HEADER_ONLY_LIBRARY( "catch" "Catch/single_include/catch2" )
 IF (WITH_CATCH_SPLIT)
   SET(CATCH_SRC_DIR "${CANCELLAR_BUILD_THIRD_PARTY_DIR}/Catch/include")
 
