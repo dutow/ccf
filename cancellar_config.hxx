@@ -14,12 +14,12 @@
 #define CANCELLAR_ARCH_X86_64 @CANCELLAR_ARCH_X86_64@
 
 namespace cancellar::compiler_config {
-constexpr decltype("@CANCELLAR_PLATFORM@") platform() { return "@CANCELLAR_PLATFORM@"; }
-constexpr bool platform_windows() { return @CANCELLAR_PLATFORM_WINDOWS@; }
-constexpr bool platform_linux() { return @CANCELLAR_PLATFORM_LINUX@; }
+constexpr decltype("@CANCELLAR_PLATFORM@") platform() noexcept { return "@CANCELLAR_PLATFORM@"; }
+constexpr bool platform_windows() noexcept { return @CANCELLAR_PLATFORM_WINDOWS@; }
+constexpr bool platform_linux() noexcept { return @CANCELLAR_PLATFORM_LINUX@; }
 
-constexpr decltype("@CANCELLAR_ARCH@") arch() { return "@CANCELLAR_ARCH@"; }
-constexpr bool arch_x86() { return @CANCELLAR_ARCH_X86@; }
-constexpr bool arch_x86_32() { return @CANCELLAR_ARCH_X86_32@; }
-constexpr bool arch_x86_64() { return @CANCELLAR_ARCH_X86_64@; }
+constexpr decltype("@CANCELLAR_ARCH@") arch() noexcept { return "@CANCELLAR_ARCH@"; }
+constexpr bool arch_x86() noexcept { return @CANCELLAR_ARCH_X86@; }
+constexpr bool arch_x86_32() noexcept { return @CANCELLAR_ARCH_X86_32@; }
+constexpr bool arch_x86_64() noexcept { return @CANCELLAR_ARCH_X86_64@; }
 }

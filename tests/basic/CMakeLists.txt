@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.15)
+project(simple-test)
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../" ${CMAKE_MODULE_PATH})
+include(ccf_init)
+
+add_subdirectory(a_ns)
