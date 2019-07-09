@@ -12,6 +12,7 @@ Howewer, it also makes several assumptions, and will report errors if those aren
 If a project mets these requirements this script allow a zero-configuration setup and offer:
 
 * a sane default configuration (warnings as errors ; most warnings turned on, C++17, ...)
+* no global-config-hell: can be used with any classic CMake code, runs fine alongside it
 * support for easy configuration of some third parties
 * a clang-tidy setup
 * a clang-format setup and enforcement
@@ -106,7 +107,7 @@ These scripts assume a simple module structure, where:
 ### Adding tests
 
 * Create the test folder
-* Re-run CMake/Ninja: mimimal files created
+* Re-run CMake/Ninja: minimal files created
 
 ### CMakeLists in ns_folder
 

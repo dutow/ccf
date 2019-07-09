@@ -1,4 +1,7 @@
 ccf_ns(a_ns)
+add_subdirectory(a_deep_library)
+add_subdirectory(a_shared_library)
+add_subdirectory(a_static_library)
 add_subdirectory(an_executable)
 add_subdirectory(single_main_executable)
 add_subdirectory(no_source)

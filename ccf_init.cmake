@@ -1,6 +1,8 @@
 
 cmake_minimum_required(VERSION 3.15)
 
+#### Early exit for common unsupported setups
+
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt.")
 endif()
@@ -19,26 +21,41 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(CheckIPOSupported)
 check_ipo_supported()
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+
+#### Define options & config variables
 
 option(WITH_TIDY "Run clang-tidy during the build, if clang is the compiler" ON)
 option(WITH_STATIC_LIBS "Generate static libraries? Most of the time those aren't needed with LTO" OFF)
 
-if(NOT DEFINED CANCELLAR_BUILD_SOURCE_DIR)
-  set(CANCELLAR_BUILD_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+if(NOT DEFINED CCF_BUILD_SOURCE_DIR)
+  set(CCF_BUILD_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 
-if(NOT DEFINED CANCELLAR_BUILD_BINARY_DIR)
-  set(CANCELLAR_BUILD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+if(NOT DEFINED CCF_BUILD_BINARY_DIR)
+  set(CCF_BUILD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 endif()
 
-if(NOT DEFINED CANCELLAR_BUILD_THIRD_PARTY_DIR)
-  set( CANCELLAR_BUILD_THIRD_PARTY_DIR "${CANCELLAR_BUILD_SOURCE_DIR}/3rd-party/")
+if(NOT DEFINED CCF_BUILD_THIRD_PARTY_DIR)
+  set( CCF_BUILD_THIRD_PARTY_DIR "${CCF_BUILD_SOURCE_DIR}/3rd-party/")
 endif()
 
 if(NOT DEFINED PREFERRED_CXX_EXTENSION)
   set(PREFERRED_CXX_EXTENSION "cxx")
 endif()
+
+#### Ensure an empty cpp source file exists
+set(CCF_EMPTY "${CCF_BUILD_BINARY_DIR}/__ccf_empty.${PREFERRED_CXX_EXTENSION}")
+file(WRITE "${CCF_EMPTY}" "")
+
+
+#### Configure PIC/PIE flags
+
+# TODO: push/pop stack
+cmake_policy(SET CMP0083 NEW)
+include(CheckPIESupported)
+check_pie_supported()
+
+#### Include main code
 
 include(build_helpers)
 include(CancellarConfig)
