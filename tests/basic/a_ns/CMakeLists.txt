@@ -1,4 +1,6 @@
 ccf_ns(a_ns)
+# ccf_add_all()
+# ccf_add(a_deep_library)
 add_subdirectory(a_deep_library)
 add_subdirectory(a_shared_library)
 add_subdirectory(a_static_library)

@@ -25,7 +25,7 @@ function(_ccf_set_target_properties target)
   if(target_type STREQUAL "SHARED_LIBRARY" AND WIN32)
     set_property(TARGET ${target} PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # TODO: fix cmake bindexplib to support bitcode objects
-    set_property(TARGET ${target} PROPERTY INTERPROCEDURAL_OPTIMIZATION OFF)
+    #set_property(TARGET ${target} PROPERTY INTERPROCEDURAL_OPTIMIZATION OFF)
   endif()
 
   if(WITH_TIDY)

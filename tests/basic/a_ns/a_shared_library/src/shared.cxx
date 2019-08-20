@@ -2,4 +2,7 @@
 
 #include "shared.hxx"
 
-int shared_function() { return 137; }
+int ix = 0;
+const int c = 137;
+
+int shared_function() { return c + ix; }
