@@ -25,7 +25,9 @@ check_ipo_supported()
 #### Define options & config variables
 
 option(WITH_TIDY "Run clang-tidy during the build, if clang is the compiler" ON)
-option(WITH_STATIC_LIBS "Generate static libraries? Most of the time those aren't needed with LTO" OFF)
+
+set(CCF_DIR "${CMAKE_CURRENT_LIST_DIR}")
+set(CCF_TEMPLATE_DIR "${CCF_DIR}/templates")
 
 if(NOT DEFINED CCF_BUILD_SOURCE_DIR)
   set(CCF_BUILD_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
@@ -61,6 +63,18 @@ include(build_helpers)
 include(CancellarConfig)
 include(CompilerConfig)
 
-include( third-parties/third-party-helper )
+### testing
+enable_testing()
+
+set(CCF_IGNORE "^cmake;^build;^_3p$")
+
+### Dependencies!
+if(NOT DEFINED CCF_DEPENDENCY_SUBDIR)
+  set(CCF_DEPENDENCY_SUBDIR "_3p/")
+endif()
+
+set(CCF_DEPENDENCY_DIR "${CCF_BUILD_SOURCE_DIR}/${CCF_DEPENDENCY_SUBDIR}/")
+
+include(ccf_3p)
 
 

@@ -5,6 +5,7 @@ This repository provides helpers for setting up C++ projects using CMake in a qu
 
 Howewer, it also makes several assumptions, and will report errors if those aren't met:
 
+* At least CMake 3.16 is used
 * The compiler is clang/clang++ (and NOT clang-cl)
 * The generator is Ninja
 * An out of source build is used
@@ -36,11 +37,11 @@ Unless otherwise specified, init will automatically add the following third part
   * threads (threading flags)
   * backward-cpp for debug builds (automatic stack trace generation on linux)
 * For every test project:
-  * catch
+  * catch2
   * fakeit
 
 During its run the script will check for several common configuration files to exists.
-If they don't it'll create then based on a template.
+If they don't it'll create them based on a template.
 
 These files are:
 
@@ -61,10 +62,15 @@ Third party libraries:
 ---
 
 For any supported third party in the `3rd-party` forder, add:
-`ccf_3rd(name)`
+`ccf_3p(<name> <TAG|COMMIT> <ref>)` or `ccf_3p(<name> DEFAULT)`
 
-Third party libraries usually expect the sources to be found under `3rd-party/name`, as a submodule.
-If that directory doesn't exist when the third party is configured it'll automatically add the submodule.
+Third party libraries usually expect the sources to be found under `_3p/name`, as a shallow submodule.
+It'll ensure that:
+
+* this submodule exists
+* that it points to the correct ref
+* that the dependency is built with the correct settings if it isn't header only
+* that the dependency exists as a CMake interface target
 
 Build structure:
 ---
@@ -97,7 +103,15 @@ These scripts assume a simple module structure, where:
    CMakeLists.txt
 ```
 
-### Adding new targets
+### Adding new targets (full automatic)
+
+* Call `ccf_add_all(NAMESPACE)` in the main CMakeLists
+* Create a subdirectory for a namespace: `a_ns`
+* Create a subdirectory for an executable: `a_ns/target_folder`
+* (Re)run CMake
+* Use the newly created executable scaffold in `a_ns/target_folder`
+
+### Adding new targets (manual listing)
 
 * Create the target's directory
 * Add the `add_subdirectory` entry to the parent directory
@@ -106,23 +120,27 @@ These scripts assume a simple module structure, where:
 
 ### Adding tests
 
-* Create the test folder
+* Add a folder inside `tests`
 * Re-run CMake/Ninja: minimal files created
 
 ### CMakeLists in ns_folder
 
 ```
-ccf_ns("ns_folder")
-add_subdirectory("target_folder")
+ccf_ns()
+ccf_add_all(TARGET)
 ```
+
+(created automatically)
 
 ### CMakeLists in target_folder
 
 ```
-ccf_ns("target_folder")
-ccf_target(EXECUTABLE/STATIC_LIBRARY/DYNAMIC_LIBRARY)
-ccf_depends(some-other-target)
+ccf_ns()
+ccf_target(EXECUTABLE) # or STATIC_LIBRARY/DYNAMIC_LIBRARY
+#ccf_depends(some-other-target)
 ```
+
+(created automatically with EXECUTABLE, without comments)
 
 The build relies on `GLOB_RECURSE` and `CONFIGURE_DEPENDS`, nothing else has to be specified.
 The alternative was to add a sanity check to `ccf_end` to check that there are no missing undocumented files - and then this makes more sense.
@@ -133,10 +151,15 @@ This is to support writing tests against executables:
 an executable is an object library containing everything but the main, and an executable target using both.
 Tests use the object library.
 
-### CMakeLists in test folders
+### CMakeLists in a test folder
 
 ```
-test_target(name EXECUATABLE/STATIC_LIBRARY/DYNAMIC_LIBRARY)
+ccf_ns()
+ccf_target(EXECUTABLE) # or STATIC_LIBRARY/DYNAMIC_LIBRARY
+ccf_test()
+#ccf_test(additional_test_name param1 param2 param3)
+ccf_depends(catch2)
+ccf_depends(parent-target)
 ```
 
-Tests automatically depend on their parent project.
+(created automacitally with EXECUTABLE, without comments)
