@@ -66,7 +66,7 @@ include(CompilerConfig)
 ### testing
 enable_testing()
 
-set(CCF_IGNORE "^cmake;^build;^_3p$")
+set(CCF_IGNORE "^cmake;^build;^_3p$;^[.]git$")
 
 ### Dependencies!
 if(NOT DEFINED CCF_DEPENDENCY_SUBDIR)

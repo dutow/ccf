@@ -23,7 +23,7 @@ function(ccf_ns)
     set(CCF_BUILD_SCOPEVAR "${CCF_BUILD_SCOPEDIR}_${add}" PARENT_SCOPE)
   endif()
 
-  set(CCF_IGNORE "^cmake;^build;^_3p$" PARENT_SCOPE)
+  set(CCF_IGNORE "^cmake;^build;^_3p$;^[.]git$" PARENT_SCOPE)
 endfunction()
 
 macro(ccf_ignore)
