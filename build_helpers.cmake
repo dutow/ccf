@@ -33,7 +33,7 @@ endmacro()
 function(_ccf_set_target_properties target)
   target_include_directories(${target} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
   target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/internal_include)
-  target_compile_options( ${target} PRIVATE "-Werror" "-Wextra" "-Wdocumentation" )
+  target_compile_options( ${target} PRIVATE "-Werror" "-Wextra" )
 
   set_property(TARGET ${target} PROPERTY POSITION_INDEPENDENT_CODE ON)
   set_property(TARGET ${target} PROPERTY INTERPROCEDURAL_OPTIMIZATION ON)
