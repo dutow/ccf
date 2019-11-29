@@ -1,4 +1,7 @@
 
+
+  set(CCF_TARGETS "" CACHE INTERNAL "CCF targets")
+
 function(ccf_ns)
   if("${ARGC}" GREATER 0)
     set(add "${ARGV0}")
@@ -33,7 +36,7 @@ endmacro()
 function(_ccf_set_target_properties target)
   target_include_directories(${target} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
   target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/internal_include)
-  target_compile_options( ${target} PRIVATE "-Werror" "-Wextra" )
+  target_compile_options( ${target} PRIVATE "" "-Wextra" )
 
   set_property(TARGET ${target} PROPERTY POSITION_INDEPENDENT_CODE ON)
   set_property(TARGET ${target} PROPERTY INTERPROCEDURAL_OPTIMIZATION ON)
@@ -44,6 +47,16 @@ function(_ccf_set_target_properties target)
     set_property(TARGET ${target} PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # TODO: fix cmake bindexplib to support bitcode objects
     #set_property(TARGET ${target} PROPERTY INTERPROCEDURAL_OPTIMIZATION OFF)
+  endif()
+
+  if(target_type STREQUAL "SHARED_LIBRARY" OR target_type STREQUAL "EXECUTABLE")
+    if(CCF_TEST_MODE)
+      set(CCF_OUTPUT_DIRECTORY "test")
+    else()
+      set(CCF_OUTPUT_DIRECTORY "bin")
+    endif()
+    set_property(TARGET ${target} PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CCF_OUTPUT_DIRECTORY}")
+    set_property(TARGET ${target} PROPERTY LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CCF_OUTPUT_DIRECTORY}")
   endif()
 
   if(WITH_TIDY)
@@ -136,8 +149,13 @@ function(ccf_target type)
     _ccf_set_target_properties(${CCF_BUILD_SCOPE}-objs)
   endif()
 
+  list(APPEND CCF_TARGETS ${CCF_BUILD_SCOPE})
+  set(CCF_TARGETS "${CCF_TARGETS}" CACHE INTERNAL "CCF Targets")
+  set("CCF_DEPS_${CCF_BUILD_SCOPE}" "" CACHE INTERNAL "Deps for target")
+
   ###### Add test targets
   if(NOT EXISTS "tests/CMakeLists.txt")
+    ccf_ns("tests")
     file(GLOB tests_content CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/tests/*")
     foreach(entry ${tests_content})
       if(IS_DIRECTORY "${entry}")
@@ -152,7 +170,17 @@ function(ccf_target type)
   endif()
 endfunction()
 
+# ccf_depends does uses late binding:
+# the reason behind this si tha ccf_add_all loads cmakefiles in alphabetical order, 
+# which isn't neccessarily the same as the dependency order
+# e.g. it is possible that we'll try to add a dependent before a dependency
+# to solve this, ccf_depends only records dependency requests, and then ccf_dep_resolve applies them
 function(ccf_depends)
+  list(APPEND "CCF_DEPS_${CCF_BUILD_SCOPE}" ${ARGV})
+  set("CCF_DEPS_${CCF_BUILD_SCOPE}" "${CCF_DEPS_${CCF_BUILD_SCOPE}}" CACHE INTERNAL "Deps for target")
+endfunction()
+
+function(_ccf_dep_resolve_one)
   foreach(dep ${ARGV})
     if(NOT TARGET ${dep})
       ccf_3p(${dep} DEFAULT)
@@ -169,6 +197,13 @@ function(ccf_depends)
     else()
       message(FATAL_ERROR "Dependency not found for target ${CCF_BUILD_SCOPE}: ${dep}")
     endif()
+  endforeach()
+endfunction()
+
+function(ccf_dep_resolve)
+  foreach(CCF_BUILD_SCOPE ${CCF_TARGETS})
+    message("Resolving dependencies for ${CCF_BUILD_SCOPE} : ${CCF_DEPS_${CCF_BUILD_SCOPE}}")
+    _ccf_dep_resolve_one("${CCF_DEPS_${CCF_BUILD_SCOPE}}")
   endforeach()
 endfunction()
 

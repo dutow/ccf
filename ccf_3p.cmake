@@ -22,6 +22,14 @@ macro(_ccf_dep_git_fetch)
       RESULT_VARIABLE DEP_RESULT
     )
   endif()
+  if(ref_type MATCHES "BRANCH")
+    execute_process(COMMAND ${GIT_EXECUTABLE} fetch origin master
+      WORKING_DIRECTORY "${CCF_BUILD_SOURCE_DIR}/${dep_directory}"
+      OUTPUT_QUIET
+      ERROR_VARIABLE DEP_ERROR
+      RESULT_VARIABLE DEP_RESULT
+    )
+  endif()
   if(NOT "${DEP_RESULT}" EQUAL 0)
     message(FATAL_ERROR "GIT fetch failed for dep ${_CCF_DEP_NAME}: ${DEP_ERROR}")
   endif()
@@ -123,7 +131,7 @@ macro(ccf_3p_lib_header_only target)
   endforeach()
 endmacro()
 
-# syntax: name <TAG/COMMIT> <ref>
+# syntax: name <TAG/COMMIT/BRANCH> <ref>
 function(ccf_3p a_dep a_ref_type)
   string(TOLOWER "${a_dep}" dep)
   string(TOUPPER "${a_ref_type}" ref_type)
@@ -133,7 +141,7 @@ function(ccf_3p a_dep a_ref_type)
     return()
   endif()
 
-  set(_allowed_values "TAG;COMMIT;DEFAULT")
+  set(_allowed_values "TAG;COMMIT;BRANCH;DEFAULT")
   if (NOT "${ref_type}" IN_LIST _allowed_values)
     message(FATAL_ERROR "Unknown reference type for dependency ${dep}: ${ref_type}")
   endif()

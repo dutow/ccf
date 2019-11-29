@@ -60,13 +60,13 @@ check_pie_supported()
 #### Include main code
 
 include(build_helpers)
-include(CancellarConfig)
+include(ccf_config)
 include(CompilerConfig)
 
 ### testing
 enable_testing()
 
-set(CCF_IGNORE "^cmake;^build;^_3p$;^[.]git$")
+set(CCF_IGNORE "^cmake;^build;^_3p$;^[.]git$;^[.]vscode$")
 
 ### Dependencies!
 if(NOT DEFINED CCF_DEPENDENCY_SUBDIR)
