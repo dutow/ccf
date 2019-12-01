@@ -202,7 +202,6 @@ endfunction()
 
 function(ccf_dep_resolve)
   foreach(CCF_BUILD_SCOPE ${CCF_TARGETS})
-    message("Resolving dependencies for ${CCF_BUILD_SCOPE} : ${CCF_DEPS_${CCF_BUILD_SCOPE}}")
     _ccf_dep_resolve_one("${CCF_DEPS_${CCF_BUILD_SCOPE}}")
   endforeach()
 endfunction()
