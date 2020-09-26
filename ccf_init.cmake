@@ -14,7 +14,7 @@ endif()
 if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
    OR NOT CMAKE_C_COMPILER_ID STREQUAL "Clang"
    OR NOT "x${CMAKE_CXX_COMPILER_FRONTEND_VARIANT}" STREQUAL "xGNU")
-  message(FATAL_ERROR "CCF only supports the Clang compiler, using the GNU-style command line (not clang-cl). Please re-run CMake with the C and C++ compiler set to clang/clang++. You may need to remove CMakeCache.txt.")
+ #message(FATAL_ERROR "CCF only supports the Clang compiler, using the GNU-style command line (not clang-cl). Please re-run CMake with the C and C++ compiler set to clang/clang++. You may need to remove CMakeCache.txt.")
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
