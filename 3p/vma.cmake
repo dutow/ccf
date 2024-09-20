@@ -5,5 +5,5 @@ set(_CCF_DEP_DEFAULT_VER "master")
 #set(_CCF_DEP_IGNORE_CHANGES ON)
 
 macro(_ccf_3p_target_callback)
-  ccf_3p_lib_header_only( "vma" "." )
+  ccf_3p_lib_header_only( "vma" "include" "VulkanMemoryAllocator/include" )
 endmacro()
